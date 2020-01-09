@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage>
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    _offset = Tween<Offset>(begin: Offset(-1, 0), end: Offset.zero)
+    _offset = Tween<Offset>(begin: Offset(1, 0), end: Offset.zero)
         .animate(_controller);
     _controller.forward();
   }
@@ -117,33 +117,33 @@ class _MyHomePageState extends State<MyHomePage>
       height: 30,
     ),
     SizedBox(),
-    SizedBox(
-      width: 30,
-      height: 30,
-    ),
-    Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        SelectableText(
-          'DESENVOLVIMENTO',
-          style: TextStyle(color: Colors.white, fontSize: 30),
-        ),
-        SelectableText(
-          'WEB | MOBILE',
-          style: TextStyle(color: Colors.white, fontSize: 30),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        SelectableText(
-          'SOLUÇÕES',
-          style: TextStyle(color: Colors.white, fontSize: 30),
-        ),
-        SelectableText(
-          'COMERCIAIS',
-          style: TextStyle(color: Colors.white, fontSize: 30),
-        ),
-      ],
+    Container(
+      padding: EdgeInsets.all(30),
+      color: Color.fromRGBO(33, 33, 33, 1),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SelectableText(
+            'DESENVOLVIMENTO',
+            style: TextStyle(color: Colors.white, fontSize: 30),
+          ),
+          SelectableText(
+            'WEB | MOBILE',
+            style: TextStyle(color: Colors.white, fontSize: 30),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          SelectableText(
+            'SOLUÇÕES',
+            style: TextStyle(color: Colors.white, fontSize: 30),
+          ),
+          SelectableText(
+            'COMERCIAIS',
+            style: TextStyle(color: Colors.white, fontSize: 30),
+          ),
+        ],
+      ),
     )
   ];
 }

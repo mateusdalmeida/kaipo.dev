@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'kaipo',
-      theme: ThemeData(fontFamily: "QuickSand", primarySwatch: Colors.grey),
+      theme: ThemeData(fontFamily: "QuickSand"),
       home: MyHomePage(),
     );
   }
