@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -6,13 +8,57 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<Offset> _offset;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _offset = Tween<Offset>(begin: Offset(-1, 0), end: Offset.zero)
+        .animate(_controller);
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(33, 33, 33, 1),
+      bottomNavigationBar: Container(
+          height: MediaQuery.of(context).size.height / 9,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth > 768) {
+                return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: footer);
+              } else {
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: footer);
+              }
+            },
+          )),
       body: Center(child: SingleChildScrollView(
         child: LayoutBuilder(builder: (context, constraints) {
+          Widget kaipo = SlideTransition(
+            position: _offset,
+            child: SelectableText(
+              'kaipo',
+              style: TextStyle(color: Colors.white, fontSize: 100),
+            ),
+          );
+
           if (constraints.maxWidth > 768) {
             Widget divider = Container(
               height: 190,
@@ -24,6 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ], color: Colors.white, borderRadius: BorderRadius.circular(8)),
             );
+            infos.removeAt(0);
+            infos.insert(0, kaipo);
             infos.removeAt(2);
             infos.insert(2, divider);
             return Row(
@@ -39,6 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ], color: Colors.white, borderRadius: BorderRadius.circular(8)),
             );
+            infos.removeAt(0);
+            infos.insert(0, kaipo);
             infos.removeAt(2);
             infos.insert(2, divider);
             return Column(
@@ -49,35 +99,24 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  List<Widget> infos = [
+  List<Widget> footer = [
     Text(
-      'kaipo',
-      style: TextStyle(color: Colors.white, fontSize: 100),
+      "copyright \u00a9 2020 kaipo - Todos os direitos reservados",
+      style: TextStyle(color: Colors.white),
     ),
+    SelectableText(
+      "contato@kaipo.dev",
+      style: TextStyle(color: Colors.white),
+    ),
+  ];
+
+  List<Widget> infos = [
+    SizedBox(),
     SizedBox(
       width: 30,
       height: 30,
     ),
     SizedBox(),
-    // orientation
-    //     ? Divider(
-    //         indent: 100,
-    //         endIndent: 100,
-    //         thickness: 10,
-    //         color: Colors.white,
-    //       )
-    // VerticalDivider(
-    //   indent: 100,
-    //   endIndent: 100,
-    //   thickness: 10,
-    //   color: Colors.white,
-    // ),
-    // Container(
-    //   height: teste ? 170 : 10,
-    //   width: teste ? 10 : 100,
-    //   decoration: BoxDecoration(
-    //       color: Colors.white, borderRadius: BorderRadius.circular(8)),
-    // ),
     SizedBox(
       width: 30,
       height: 30,
@@ -85,22 +124,22 @@ class _MyHomePageState extends State<MyHomePage> {
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(
+        SelectableText(
           'DESENVOLVIMENTO',
           style: TextStyle(color: Colors.white, fontSize: 30),
         ),
-        Text(
+        SelectableText(
           'WEB | MOBILE',
           style: TextStyle(color: Colors.white, fontSize: 30),
         ),
         SizedBox(
           height: 30,
         ),
-        Text(
+        SelectableText(
           'SOLUÇÕES',
           style: TextStyle(color: Colors.white, fontSize: 30),
         ),
-        Text(
+        SelectableText(
           'COMERCIAIS',
           style: TextStyle(color: Colors.white, fontSize: 30),
         ),

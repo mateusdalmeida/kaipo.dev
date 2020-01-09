@@ -59,7 +59,7 @@ flutter:
   fonts:
     - family: QuickSand
       fonts:
-        - asset: assets/QuickSand-Ligth.ttf
+        - asset: assets/QuickSand-Light.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
